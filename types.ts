@@ -29,6 +29,12 @@ export enum AppState {
   ERROR = 'ERROR'
 }
 
+export enum AnalysisMode {
+  COMPLETE = 'COMPLETE',
+  HAIRSTYLE_ONLY = 'HAIRSTYLE_ONLY',
+  FACIAL_HAIR_ONLY = 'FACIAL_HAIR_ONLY'
+}
+
 export interface UploadedImage {
   file: File;
   previewUrl: string;

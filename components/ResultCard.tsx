@@ -7,109 +7,110 @@ interface ResultCardProps {
   type: 'hair' | 'beard';
 }
 
-// Map of style keywords to LOCAL image paths
-// Using local paths with 'public/' prefix as requested.
+const BASE_URL = 'https://raw.githubusercontent.com/Parth-Bisht-227/StyleScout-AI/main/public/styles/';
+
+// Map of style keywords to HOSTED GitHub Raw image paths
 const STYLE_IMAGES: Record<string, string> = {
   // --- HAIRSTYLES ---
-  'crop': 'public/styles/texturedcrop.jpg',
-  'french': 'public/styles/texturedcrop.jpg',
-  'textured': 'public/styles/texturedcrop.jpg',
+  'crop': `${BASE_URL}texturedcrop.jpg`,
+  'french': `${BASE_URL}texturedcrop.jpg`,
+  'textured': `${BASE_URL}texturedcrop.jpg`,
   
-  'quiff': 'public/styles/quiff.jpg',
-  'brush up': 'public/styles/quiff.jpg',
-  'volume': 'public/styles/quiff.jpg',
+  'quiff': `${BASE_URL}quiff.jpg`,
+  'brush up': `${BASE_URL}quiff.jpg`,
+  'volume': `${BASE_URL}quiff.jpg`,
 
-  'fade': 'public/styles/fade.jpg',
-  'taper': 'public/styles/fade.jpg',
-  'skin': 'public/styles/fade.jpg', 
+  'fade': `${BASE_URL}fade.jpg`,
+  'taper': `${BASE_URL}fade.jpg`,
+  'skin': `${BASE_URL}fade.jpg`, 
   
-  'side part': 'public/styles/sidepart.jpg',
-  'comb over': 'public/styles/sidepart.jpg',
-  'classic': 'public/styles/sidepart.jpg',
-  'ivy league': 'public/styles/sidepart.jpg',
+  'side part': `${BASE_URL}sidepart.jpg`,
+  'comb over': `${BASE_URL}sidepart.jpg`,
+  'classic': `${BASE_URL}sidepart.jpg`,
+  'ivy league': `${BASE_URL}sidepart.jpg`,
 
-  'undercut': 'public/styles/undercut.jpg',
-  'disconnected': 'public/styles/undercut.jpg',
+  'undercut': `${BASE_URL}undercut.jpg`,
+  'disconnected': `${BASE_URL}undercut.jpg`,
 
-  'buzz': 'public/styles/buzzcut.jpg',
-  'military': 'public/styles/buzzcut.jpg',
-  'high and tight': 'public/styles/buzzcut.jpg',
-  'burr': 'public/styles/buzzcut.jpg',
+  'buzz': `${BASE_URL}buzzcut.jpg`,
+  'military': `${BASE_URL}buzzcut.jpg`,
+  'high and tight': `${BASE_URL}buzzcut.jpg`,
+  'burr': `${BASE_URL}buzzcut.jpg`,
 
-  'crew': 'public/styles/crewcut.jpg',
+  'crew': `${BASE_URL}crewcut.jpg`,
   
-  'fringe': 'public/styles/fringeforward.jpg',
-  'bangs': 'public/styles/fringeforward.jpg',
+  'fringe': `${BASE_URL}fringeforward.jpg`,
+  'bangs': `${BASE_URL}fringeforward.jpg`,
 
-  'pompadour': 'public/styles/pompadour.jpg',
+  'pompadour': `${BASE_URL}pompadour.jpg`,
   
-  'slick': 'public/styles/slickback.jpg',
+  'slick': `${BASE_URL}slickback.jpg`,
   
-  'long': 'public/styles/longhairwavy.jpg',
-  'wavy': 'public/styles/longhairwavy.jpg',
-  'flow': 'public/styles/longhairwavy.jpg',
-  'surfer': 'public/styles/longhairwavy.jpg',
+  'long': `${BASE_URL}longhairwavy.jpg`,
+  'wavy': `${BASE_URL}longhairwavy.jpg`,
+  'flow': `${BASE_URL}longhairwavy.jpg`,
+  'surfer': `${BASE_URL}longhairwavy.jpg`,
 
-  'bun': 'public/styles/manbun.jpg',
-  'top knot': 'public/styles/manbun.jpg',
+  'bun': `${BASE_URL}manbun.jpg`,
+  'top knot': `${BASE_URL}manbun.jpg`,
   
-  'curly': 'public/styles/curly.jpg',
-  'coils': 'public/styles/curly.jpg',
+  'curly': `${BASE_URL}curly.jpg`,
+  'coils': `${BASE_URL}curly.jpg`,
   
-  'afro': 'public/styles/afro.jpg',
+  'afro': `${BASE_URL}afro.jpg`,
   
-  'braid': 'public/styles/braidscornrows.jpg',
-  'cornrow': 'public/styles/braidscornrows.jpg',
-  'plaits': 'public/styles/braidscornrows.jpg',
+  'braid': `${BASE_URL}braidscornrows.jpg`,
+  'cornrow': `${BASE_URL}braidscornrows.jpg`,
+  'plaits': `${BASE_URL}braidscornrows.jpg`,
   
-  'dread': 'public/styles/dreadlocks.jpg',
-  'locs': 'public/styles/dreadlocks.jpg',
+  'dread': `${BASE_URL}dreadlocks.jpg`,
+  'locs': `${BASE_URL}dreadlocks.jpg`,
   
-  'caesar': 'public/styles/caesarcut.jpg',
+  'caesar': `${BASE_URL}caesarcut.jpg`,
   
-  'spiky': 'public/styles/spiky.jpg',
-  'faux hawk': 'public/styles/spiky.jpg', 
+  'spiky': `${BASE_URL}spiky.jpg`,
+  'faux hawk': `${BASE_URL}spiky.jpg`, 
 
   // --- FACIAL HAIR ---
-  'clean': 'public/styles/cleanshaven.jpg', 
-  'shaven': 'public/styles/cleanshaven.jpg', 
-  'none': 'public/styles/cleanshaven.jpg', 
-  'bald': 'public/styles/cleanshaven.jpg',
+  'clean': `${BASE_URL}cleanshaven.jpg`, 
+  'shaven': `${BASE_URL}cleanshaven.jpg`, 
+  'none': `${BASE_URL}cleanshaven.jpg`, 
+  'bald': `${BASE_URL}cleanshaven.jpg`,
 
-  'stubble': 'public/styles/stubbleheavy.jpg',
-  'shadow': 'public/styles/stubbleheavy.jpg',
-  'scruff': 'public/styles/stubbleheavy.jpg',
+  'stubble': `${BASE_URL}stubbleheavy.jpg`,
+  'shadow': `${BASE_URL}stubbleheavy.jpg`,
+  'scruff': `${BASE_URL}stubbleheavy.jpg`,
 
-  'full beard': 'public/styles/fullbeard.jpg',
-  'lumberjack': 'public/styles/fullbeard.jpg',
+  'full beard': `${BASE_URL}fullbeard.jpg`,
+  'lumberjack': `${BASE_URL}fullbeard.jpg`,
 
-  'short beard': 'public/styles/shortbeardboxed.jpg',
-  'boxed': 'public/styles/shortbeardboxed.jpg',
-  'corporate': 'public/styles/shortbeardboxed.jpg',
-  'verdi': 'public/styles/shortbeardboxed.jpg',
+  'short beard': `${BASE_URL}shortbeardboxed.jpg`,
+  'boxed': `${BASE_URL}shortbeardboxed.jpg`,
+  'corporate': `${BASE_URL}shortbeardboxed.jpg`,
+  'verdi': `${BASE_URL}shortbeardboxed.jpg`,
 
-  'goatee': 'public/styles/goateefull.jpg',
-  'circle': 'public/styles/goateefull.jpg',
+  'goatee': `${BASE_URL}goateefull.jpg`,
+  'circle': `${BASE_URL}goateefull.jpg`,
 
-  'mustache': 'public/styles/mustachechevron.jpg',
-  'moustache': 'public/styles/mustachechevron.jpg',
-  'stache': 'public/styles/mustachechevron.jpg',
-  'chevron': 'public/styles/mustachechevron.jpg',
+  'mustache': `${BASE_URL}mustachechevron.jpg`,
+  'moustache': `${BASE_URL}mustachechevron.jpg`,
+  'stache': `${BASE_URL}mustachechevron.jpg`,
+  'chevron': `${BASE_URL}mustachechevron.jpg`,
 
-  'van dyke': 'public/styles/vandyke.jpg',
+  'van dyke': `${BASE_URL}vandyke.jpg`,
   
-  'anchor': 'public/styles/anchor.jpg',
+  'anchor': `${BASE_URL}anchor.jpg`,
   
-  'balbo': 'public/styles/balbo.jpg',
+  'balbo': `${BASE_URL}balbo.jpg`,
   
-  'mutton': 'public/styles/muttonchopsfriendly.jpg',
-  'chops': 'public/styles/muttonchopsfriendly.jpg',
+  'mutton': `${BASE_URL}muttonchopsfriendly.jpg`,
+  'chops': `${BASE_URL}muttonchopsfriendly.jpg`,
   
-  'sideburn': 'public/styles/sideburnsprominent.jpg',
-  'burns': 'public/styles/sideburnsprominent.jpg',
+  'sideburn': `${BASE_URL}sideburnsprominent.jpg`,
+  'burns': `${BASE_URL}sideburnsprominent.jpg`,
   
-  'chin strap': 'public/styles/chinstrap.jpg',
-  'strap': 'public/styles/chinstrap.jpg',
+  'chin strap': `${BASE_URL}chinstrap.jpg`,
+  'strap': `${BASE_URL}chinstrap.jpg`,
 };
 
 // Fallback images (Unsplash)
@@ -141,7 +142,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ recommendation, type }) 
   const handleError = () => {
     const fallback = type === 'hair' ? DEFAULT_HAIR : DEFAULT_BEARD;
     
-    // INSTANT SWAP: If local fails, switch to fallback
+    // INSTANT SWAP: If hosted image fails, switch to fallback
     if (imgSrc !== fallback) {
       setImgSrc(fallback);
     } else {

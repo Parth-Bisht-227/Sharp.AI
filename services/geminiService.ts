@@ -1,15 +1,13 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { AnalysisResult } from "../types";
+import { AnalysisResult, AnalysisMode } from "../types";
 
-const SYSTEM_INSTRUCTION = `
+const BASE_SYSTEM_INSTRUCTION = `
 You are an expert professional stylist and barber with deep knowledge of face shapes, aesthetics, and grooming.
 Your task is to analyze a user's facial image and provide personalized recommendations.
 1. Identify the user's face shape (e.g., Oval, Round, Square, Diamond, Heart, Oblong).
 2. Analyze key facial features (jawline, forehead, cheekbones).
-3. Recommend 3-4 specific hairstyles that complement this face shape.
-4. Recommend 3-4 specific beard or facial hair styles.
-5. Recommend 3 distinct "Look Combinations" that pair a specific hairstyle with a facial hair style to create a cohesive look. Give each look a creative name (e.g., "The Modern Gentleman", "The Creative rugged").
-6. Provide 3-4 general grooming or styling tips.
+3. Recommend styles based on the specific request mode.
+4. Provide 3-4 general grooming or styling tips.
 
 Be specific about WHY a style works (e.g., "Adds volume to top to elongate a round face").
 `;
@@ -27,7 +25,7 @@ const RESPONSE_SCHEMA: Schema = {
     },
     hairstyles: {
       type: Type.ARRAY,
-      description: "Recommended hairstyles.",
+      description: "Recommended hairstyles. Empty if facial hair only.",
       items: {
         type: Type.OBJECT,
         properties: {
@@ -40,7 +38,7 @@ const RESPONSE_SCHEMA: Schema = {
     },
     facialHair: {
       type: Type.ARRAY,
-      description: "Recommended beard or facial hair styles.",
+      description: "Recommended beard or facial hair styles. Empty if hairstyle only.",
       items: {
         type: Type.OBJECT,
         properties: {
@@ -53,7 +51,7 @@ const RESPONSE_SCHEMA: Schema = {
     },
     combinations: {
       type: Type.ARRAY,
-      description: "Recommended combinations of hair and beard styles.",
+      description: "Recommended combinations. Empty if single mode selected.",
       items: {
         type: Type.OBJECT,
         properties: {
@@ -75,12 +73,23 @@ const RESPONSE_SCHEMA: Schema = {
   required: ["faceShape", "faceAnalysis", "hairstyles", "facialHair", "combinations", "groomingTips"],
 };
 
-export const analyzeFace = async (base64Image: string): Promise<AnalysisResult> => {
+export const analyzeFace = async (base64Image: string, mode: AnalysisMode): Promise<AnalysisResult> => {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     // Remove header if present
     const cleanBase64 = base64Image.split(',')[1] || base64Image;
+
+    let modeInstruction = "";
+    if (mode === AnalysisMode.HAIRSTYLE_ONLY) {
+      modeInstruction = "FOCUS ONLY ON HAIRSTYLES. Return an empty array for 'facialHair'. Populate 'hairstyles' with 4-5 options. Populate 'combinations' with 3 distinct hairstyle-only transformations (leave facialHair as empty string in combinations).";
+    } else if (mode === AnalysisMode.FACIAL_HAIR_ONLY) {
+      modeInstruction = "FOCUS ONLY ON FACIAL HAIR. Return an empty array for 'hairstyles'. Populate 'facialHair' with 4-5 options. Populate 'combinations' with 3 distinct facial-hair-only transformations (leave hairstyle as empty string in combinations).";
+    } else {
+      modeInstruction = "Recommend 3-4 specific hairstyles, 3-4 specific facial hair styles, and 3 distinct 'Look Combinations' pairing them together.";
+    }
+
+    const fullSystemInstruction = `${BASE_SYSTEM_INSTRUCTION}\n\nCURRENT MODE: ${modeInstruction}`;
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
@@ -93,12 +102,12 @@ export const analyzeFace = async (base64Image: string): Promise<AnalysisResult> 
             },
           },
           {
-            text: "Analyze this face and recommend styles including combinations.",
+            text: "Analyze this face and recommend styles based on the mode provided in system instructions.",
           },
         ],
       },
       config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
+        systemInstruction: fullSystemInstruction,
         responseMimeType: "application/json",
         responseSchema: RESPONSE_SCHEMA,
       },

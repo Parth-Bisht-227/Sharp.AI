@@ -58,7 +58,13 @@ export const CombinationCard: React.FC<CombinationCardProps> = ({ combination, o
     setIsGenerating(true);
     setError(null);
     try {
-      const description = `Hairstyle: ${combination.hairstyle}. Facial Hair: ${combination.facialHair}. Look details: ${combination.description}`;
+      // Build description based on what's available
+      let promptParts = [];
+      if (combination.hairstyle) promptParts.push(`Hairstyle: ${combination.hairstyle}`);
+      if (combination.facialHair) promptParts.push(`Facial Hair: ${combination.facialHair}`);
+      
+      const description = `${promptParts.join('. ')}. Look details: ${combination.description}`;
+      
       const imageUrl = await generateLookPreview(originalImageBase64, description);
       setGeneratedImage(imageUrl);
       setSliderPosition(50); // Reset slider to middle
@@ -130,13 +136,21 @@ export const CombinationCard: React.FC<CombinationCardProps> = ({ combination, o
         </div>
         
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-secondary px-3 py-1 rounded text-xs text-gray-300 border border-gray-700">
-            {combination.hairstyle}
-          </span>
-          <span className="text-gray-500 flex items-center">+</span>
-          <span className="bg-secondary px-3 py-1 rounded text-xs text-gray-300 border border-gray-700">
-            {combination.facialHair}
-          </span>
+          {combination.hairstyle && (
+            <span className="bg-secondary px-3 py-1 rounded text-xs text-gray-300 border border-gray-700">
+              {combination.hairstyle}
+            </span>
+          )}
+          
+          {combination.hairstyle && combination.facialHair && (
+            <span className="text-gray-500 flex items-center">+</span>
+          )}
+
+          {combination.facialHair && (
+            <span className="bg-secondary px-3 py-1 rounded text-xs text-gray-300 border border-gray-700">
+              {combination.facialHair}
+            </span>
+          )}
         </div>
 
         <p className="text-gray-300 text-sm leading-relaxed mb-4">
