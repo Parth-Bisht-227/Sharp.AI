@@ -7,8 +7,8 @@ interface ResultCardProps {
   type: 'hair' | 'beard';
 }
 
-// Switched to local path to use the updated images in public/styles/
-const BASE_URL = 'https://raw.githubusercontent.com/Parth-Bisht-227/Sharp.AI/main/public/styles/';
+// Updated the BASE URL to a correct github repo file, USE THIS ONLY
+const BASE_URL = 'https://raw.githubusercontent.com/Parth-Bisht-227/file-storage/main/styles/';
 
 // Map of style keywords to local image paths
 const STYLE_IMAGES: Record<string, string> = {
