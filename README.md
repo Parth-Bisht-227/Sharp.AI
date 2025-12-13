@@ -42,7 +42,7 @@ Before running the project, ensure you have the following installed:
 1.  **Clone the Repository**
 
     ```bash
-    git clone https://github.com/your-username/Sharp-AI.git
+    git clone https://github.com/Parth-Bisht-227/Sharp.AI.git
     cd Sharp-AI
     ```
 
