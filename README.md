@@ -4,7 +4,8 @@
 
 Sharp.AI (formerly StyleScout) is an AI-powered master barber application. It utilizes advanced computer vision and generative AI to analyze facial features and recommend the best hairstyles and grooming tips tailored to your unique face shape.
 
-![Sharp.AI Screenshot](https://via.placeholder.com/800x400?text=Sharp.AI+Interface)
+![Sharp.AI Screenshot](https://github.com/user-attachments/assets/a528f204-3023-4905-9b43-d4ecf6f7e98c)
+![Try It yourself on AI Studio!](https://ai.studio/apps/drive/15K3-vRDVv0YeiaNnJ0a0X-VkeymKnx_8?fullscreenApplet=true)
 
 ## Features
 
